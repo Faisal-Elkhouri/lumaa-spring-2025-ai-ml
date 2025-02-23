@@ -1,91 +1,66 @@
 # AI/Machine Learning Intern Challenge: Simple Content-Based Recommendation
 
-**Deadline**: Sunday, Feb 23th 11:59 pm PST
+**Applicant**: Chris El-Khouri, felkhouri@ucsd.edu
 
----
 
-## Overview
+# 🎬 Content-Based Movie Recommendation System  
 
-Build a **content-based recommendation system** that, given a **short text description** of a user’s preferences, suggests **similar items** (e.g., movies) from a small dataset. This challenge should take about **3 hours**, so keep your solution **simple** yet **functional**.
+## 📌 Overview  
+This simple project implements a **content-based recommendation system** that suggests movies based on a user's short text description of their preferences. In line with the requirements, the system uses **TF-IDF vectorization** and **cosine similarity** to compare the user's query with movie overviews and return the most relevant recommendations.  
 
-### Example Use Case
+## 📊 Dataset  
+- The dataset consists of movies with their **names**, **genres**, and **overviews (descriptions)**, amongst other data.
+- **Source**: The dataset contains the top 1000 best rated movies and TV shows on the website IMDB, and was taken from the following Kaggle source: https://www.kaggle.com/datasets/harshitshankhdhar/imdb-dataset-of-top-1000-movies-and-tv-shows 
 
-- The user inputs:  
-  *"I love thrilling action movies set in space, with a comedic twist."*  
-- Your system processes this description (query) and compares it to a dataset of items (e.g., movies with their plot summaries or keywords).  
-- You then return the **top 3–5 “closest” matches** to the user.
+## ⚙️ Approach  
+1. **Data Handling** The dataset is read from the csv format to a pandas dataframe. This can be seen in the file dataHandler.py.
+2. **Preprocessing:** Clean and normalize the text (lowercasing, removing special characters and stopwords), which can be found in the file recommender.py. This is applied to both the movie overview and the genres. The list of stopwords was sourced from https://gist.github.com/sebleier/554280.
+3. **TF-IDF Vectorization:** Convert movie overviews and genres into TF-IDF vectors. The implementation of the algorithm can be found in the file recommender.py, and does not rely on outside libraries. This is done before the user input is accepted, meaning that the processing does *not* have to be repeated for multiple different descriptions, making the code more efficient. 
+3. **User Input Handling:** The user input is also converted into a TF-IDF vector, and the cosine similarity is found between that vector and all other vectors. The cosine similarity algorithm can be found in the recommender.py file.
+4. **Recommendation:** By sorting based on the cosine similarity results, the program eturns the **top 5 most similar** movies.  
 
----
+## 🛠️ Setup Instructions  
 
-## Requirements
+### **1️⃣ Install Dependencies**  
+This project was created wholly in python. To install the necessary dependancies, please run
+'''
+pip install -r requirements.txt
+'''
+Which will install the very common python libraries numpy and pandas. No other libraries were used for this project, as all work was done by myself
 
-1. **Dataset**  
-   - Use a **small** public dataset of items (e.g., a list of movies with plot summaries, or other textual descriptions).  
-   - Make sure the dataset is easy to handle (maybe 100–500 rows) so the solution remains quick to implement and run.  
-   - Include the dataset in your forked repository *or* provide instructions/link on how to download it.  
+### **2️⃣ Run the program**  
+- Run the python file main.py from the terminal by running the following command in the appropriate directory
+'''
+python3 main.py
+'''
+- Enter a movie preference query when prompted.  
 
-2. **Approach**  
-   - **Content-Based**: At a minimum, use text similarity to recommend items.  
-     - For instance, you can transform both the user’s text input and each item’s description into TF-IDF vectors and compute **cosine similarity**.  
-   - Return the **top N** similar items (e.g., top 5).
+### **3️⃣ Example Query & Output**  
+#### **User Input:**  
+```
+"I want an action film with a sad end"
+```
 
-3. **Code Organization**  
-   - You may use a **Jupyter Notebook** or **Python scripts**.  
-   - Keep it **readable** and **modular** (e.g., one section for loading data, one for building vectors, one for computing similarity, etc.).  
-   - Briefly comment or docstring your key functions/sections.
+#### **Expected Output:**  
+```
+We recommend the following movies for you:
+1. Key Largo (0.28)
+2. Badlands (0.26)
+3. Avengers: Infinity War (0.25)
+4. Portrait de la jeune fille en feu (0.23)
+5. It Happened One Night (0.21)
+```
 
-4. **Output**  
-   - When given an input description (e.g., `"I like action movies set in space"`), your system should print or return a list of recommended items (e.g., 3–5 titles).  
-   - Include the similarity score or rank if you’d like.
+## 📽️ Short Video Demo 
 
-5. **Summary & Instructions**  
-   - A short `README.md` that includes:
-     - **Dataset**: Where it’s from, any steps to load it.  
-     - **Setup**: Python version, virtual environment instructions, and how to install dependencies (`pip install -r requirements.txt`).  
-     - **Running**: How to run your code (e.g., `python recommend.py "Some user description"` or open your notebook in Jupyter).  
-     - **Results**: A brief example of your system’s output for a sample query.
+The video is linked as an mp4 file in the github repository named "Demonstration.mp4".
 
----
+## 💰 Salary Expectation per Month  
+Relying on the quoted figure of $20-$30/hr, and assuming that the internship is part-time at around 20 hours a week. I expect approximately $1,700-$2,500 per month. This is dependent on the expected hours per week, and is flexible depending on the situation and the role I am offered. 
 
-## Deliverables
-
-1. **Fork the Public Repository**  
-   - **Fork** this repo into your own GitHub account.
-
-2. **Implement Your Solution**  
-   - Load and preprocess your dataset (e.g., read CSV, handle text columns).  
-   - Convert text data to vectors (e.g., TF-IDF).  
-   - Implement a function to compute similarity between the user’s query and each item’s description.  
-   - Return the top matches.
-   - Salary expectation per month (Mandatory)
-
-3. **Short Video Demo**  
-   - In a `.md` file (e.g., `demo.md`) within your fork, paste a link to a **brief screen recording** (video link).  
-   - Demonstrate:
-     - How you run the recommendation code.  
-     - A sample query and the results.
-
-4. **Deadline**  
-   - Submit your fork by **Sunday, Feb 23th 11:59 pm PST**.
-
-> **Note**: This should be doable within ~3 hours. Keep it **straightforward**—you do **not** need advanced neural networks or complex pipelines. A simple TF-IDF + cosine similarity approach is sufficient.
-
----
-
-## Evaluation Criteria
-
-1. **Functionality**  
-   - Does your code run without errors?  
-   - When given an input query, does it successfully output relevant items?
-
-2. **Code Quality**  
-   - Clear, commented code (where it counts).  
-   - Logical steps (load data → transform → recommend).
-
-3. **Clarity**  
-   - Is your `README.md` straightforward about setup, how to run, and what to expect?
-
-4. **ML/Recommendation Understanding**  
-   - Basic implementation of a content-based recommendation approach (vectorization, similarity measure).
-
-**We look forward to seeing your solution!** Good luck!
+## 📝 Deliverables  
+✅ **Forked GitHub Repository** contains the full implementation.  
+✅ **Python Files** implement the algorithm.  
+✅ **README.md** contains an explanation of the project and instructions on running the program.  
+✅ **Short Video Demo** demonstrating an example of the system running.  
+✅ **Implementation of the recommendation system** using TF-IDF and cosine similarity to recommend movies.  

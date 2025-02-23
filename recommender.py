@@ -17,7 +17,7 @@ def CleanText(initialText: str) -> list[str]:
 
 # Remove common words
 def RemoveCommonWords(wordList: list[str]) -> list[str]:
-    # List of common words that should be removed, taken from https://gist.github.com/sebleier/554280
+    # List of common words that should be removed, based on https://gist.github.com/sebleier/554280
     commonWords = ["i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your", "yours", "yourself", "yourselves", "he", "him", 
                    "his", "himself", "she", "her", "hers", "herself", "it", "its", "itself", "they", "them", "their", "theirs", "themselves", "what", 
                    "which", "who", "whom", "this", "that", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", 
@@ -25,7 +25,18 @@ def RemoveCommonWords(wordList: list[str]) -> list[str]:
                    "at", "by", "for", "with", "about", "against", "between", "into", "through", "during", "before", "after", "above", "below", "to", 
                    "from", "up", "down", "in", "out", "on", "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", 
                    "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", 
-                   "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "should", "now"]
+                   "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "should", "now", "movie", "film", "story",
+                   "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "first", "second", "third", "fourth", "fifth",
+                   "sixth", "seventh", "eighth", "ninth", "tenth", "new", "old",
+                   "director", "directed", "directors", "directing", "direct", "directs", "directly", "directorial", "directorate", "directorate",
+                   "actor", "actress", "actors", "actresses", "acting", "acted", "acts", "act", "actings", "actings", "actings", "actings",
+                   "star", "stars", "starring", "watch", "watched", "watching", "watches", "watching", "view", "views", "viewed", "viewing",
+                   "based", "base", "bases", "films", "movies", "stories"
+                   "story", "stories", "storyline", "storylines", "storytelling", "storyteller", "storytellers", "storytold", "storytells",
+                   "plot", "plots", "plotting", "plotted", "plotter", "plotters", "plotline", "plotlines", "plotter", "plotters",
+                   "life", "lives", "living", "lived", "live",
+                   "love", "loves", "loving", "loved", "lover", "lovers", "lovely", "loveliness", "lovelinesses", "lovelinesses",
+                   "like", "likes", "liking", "liked", "want", "wants", "wanted", "wanting", "give"]
     return [word for word in wordList if word not in commonWords]
 
 #Calculate TF
@@ -62,7 +73,6 @@ def calculateTFIDFVector(movieDescription, movieDescriptionsList):
     tfidfVector = {}
     for word, tfValue in termFrequencies.items():
         tfidfVector[word] = tfValue * idfValues.get(word, 0)
-        print("Word: ", word, "TF-IDF: ", tfidfVector[word])
     return tfidfVector
 
 # Calculate cosine similarity
